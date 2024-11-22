@@ -99,11 +99,26 @@ public class HomeFragment extends Fragment {
             case "i1_p2":
                 imageView.setImageResource(R.drawable.cay1chau2);
                 break;
+            case "i1_p3":
+                imageView.setImageResource(R.drawable.cay1chau3);
+                break;
             case "i2_p1":
-                imageView.setImageResource(R.drawable.cay2);
+                imageView.setImageResource(R.drawable.cay2chau1);
                 break;
             case "i2_p2":
-                imageView.setImageResource(R.drawable.chau2);
+                imageView.setImageResource(R.drawable.cay2chau2);
+                break;
+            case "i2_p3":
+                imageView.setImageResource(R.drawable.cay2chau3);
+                break;
+            case "i3_p1":
+                imageView.setImageResource(R.drawable.cay3chau1);
+                break;
+            case "i3_p2":
+                imageView.setImageResource(R.drawable.cay3chau2);
+                break;
+            case "i3_p3":
+                imageView.setImageResource(R.drawable.cay3chau3);
                 break;
             default:
                 break;

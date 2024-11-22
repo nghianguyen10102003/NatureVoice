@@ -74,11 +74,11 @@ public class NewPlantFragment extends Fragment {
 
         FrameLayout plantIcon1 = view.findViewById(R.id.Plant_icon_1);
         FrameLayout plantIcon2 = view.findViewById(R.id.Plant_icon_2);
+        FrameLayout plantIcon3 = view.findViewById(R.id.Plant_icon_3);
         FrameLayout plantPot1 = view.findViewById(R.id.Plant_pot_1);
         FrameLayout plantPot2 = view.findViewById(R.id.Plant_pot_2);
-        Button letsPlantButton = view.findViewById(R.id.lets_plant_button);
-
-        // Xử lý chọn cây
+        FrameLayout plantPot3 = view.findViewById(R.id.Plant_pot_3);
+        Button letsPlantButton = view.findViewById(R.id.lets_plant_button);// Xử lý chọn cây
         plantIcon1.setOnClickListener(v -> {
             resetPlantIcons(view);
             plantIcon1.setBackgroundColor(Color.LTGRAY);
@@ -89,6 +89,12 @@ public class NewPlantFragment extends Fragment {
             resetPlantIcons(view);
             plantIcon2.setBackgroundColor(Color.LTGRAY);
             selectedPlantIconId = "Plant_icon_2";
+        });
+
+        plantIcon3.setOnClickListener(v -> {
+            resetPlantIcons(view);
+            plantIcon3.setBackgroundColor(Color.LTGRAY);
+            selectedPlantIconId = "Plant_icon_3";
         });
 
         // Xử lý chọn chậu
@@ -104,6 +110,13 @@ public class NewPlantFragment extends Fragment {
             selectedPlantPotId = "Plant_pot_2";
         });
 
+        plantPot3.setOnClickListener(v -> {
+            resetPlantPots(view);
+            plantPot3.setBackgroundColor(Color.LTGRAY);
+            selectedPlantPotId = "Plant_pot_3";
+        });
+
+
         // Xử lý khi nhấn nút "Let's plant"
         letsPlantButton.setOnClickListener(v -> {
             if (selectedPlantIconId == null || selectedPlantPotId == null) {
@@ -118,6 +131,16 @@ public class NewPlantFragment extends Fragment {
                     selectIcon = "i2_p1";
                 } else if (selectedPlantIconId.equals("Plant_icon_2") && selectedPlantPotId.equals("Plant_pot_2")) {
                     selectIcon = "i2_p2";
+                }else if (selectedPlantIconId.equals("Plant_icon_3") && selectedPlantPotId.equals("Plant_pot_1")) {
+                    selectIcon = "i3_p1";
+                } else if (selectedPlantIconId.equals("Plant_icon_3") && selectedPlantPotId.equals("Plant_pot_2")) {
+                    selectIcon = "i3_p2";
+                }else if (selectedPlantIconId.equals("Plant_icon_1") && selectedPlantPotId.equals("Plant_pot_3")) {
+                    selectIcon = "i1_p3";
+                }else if (selectedPlantIconId.equals("Plant_icon_2") && selectedPlantPotId.equals("Plant_pot_3")) {
+                    selectIcon = "i2_p3";
+                } else if (selectedPlantIconId.equals("Plant_icon_3") && selectedPlantPotId.equals("Plant_pot_3")) {
+                    selectIcon = "i3_p3";
                 }
 
                 // Lưu dữ liệu vào SharedPreferences
@@ -141,10 +164,11 @@ public class NewPlantFragment extends Fragment {
     private void resetPlantIcons(View view) {
         view.findViewById(R.id.Plant_icon_1).setBackgroundColor(Color.TRANSPARENT);
         view.findViewById(R.id.Plant_icon_2).setBackgroundColor(Color.TRANSPARENT);
+        view.findViewById(R.id.Plant_icon_3).setBackgroundColor(Color.TRANSPARENT);
     }
 
     private void resetPlantPots(View view) {
         view.findViewById(R.id.Plant_pot_1).setBackgroundColor(Color.TRANSPARENT);
         view.findViewById(R.id.Plant_pot_2).setBackgroundColor(Color.TRANSPARENT);
-    }
+        view.findViewById(R.id.Plant_pot_3).setBackgroundColor(Color.TRANSPARENT); }
 }
