@@ -50,8 +50,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Plant_icon_1"
-                android:layout_marginLeft="85dp"
-                android:layout_marginRight="75dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="55dp"
                 >
 
                 <ImageView
@@ -66,10 +66,12 @@
                     android:src="@drawable/cay1" />
 
             </FrameLayout>
+
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/Plant_icon_2">
+                android:id="@+id/Plant_icon_2"
+                android:layout_marginRight="55dp">
 
                 <ImageView
                     android:layout_width="70dp"
@@ -79,8 +81,26 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
                     android:src="@drawable/cay2" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Plant_icon_3">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/round_background" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/cay3" />
 
             </FrameLayout>
 
@@ -103,8 +123,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Plant_pot_1"
-                android:layout_marginLeft="85dp"
-                android:layout_marginRight="75dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="55dp"
                 >
 
                 <ImageView
@@ -135,6 +155,23 @@
                     android:layout_marginLeft="12dp"
                     android:src="@drawable/chau2" />
 
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Plant_pot_3"
+                android:layout_marginLeft="55dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/round_background" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="12dp"
+                    android:src="@drawable/chau3" />
             </FrameLayout>
         </LinearLayout>
 
