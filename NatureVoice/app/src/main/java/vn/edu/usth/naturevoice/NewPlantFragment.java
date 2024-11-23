@@ -82,82 +82,68 @@ public class NewPlantFragment extends Fragment {
         plantIcon1.setOnClickListener(v -> {
             resetPlantIcons(view);
             plantIcon1.setBackgroundColor(Color.LTGRAY);
-            selectedPlantIconId = "Plant_icon_1";
+            selectedPlantIconId = "1";
         });
 
         plantIcon2.setOnClickListener(v -> {
             resetPlantIcons(view);
             plantIcon2.setBackgroundColor(Color.LTGRAY);
-            selectedPlantIconId = "Plant_icon_2";
+            selectedPlantIconId = "2";
         });
 
         plantIcon3.setOnClickListener(v -> {
             resetPlantIcons(view);
             plantIcon3.setBackgroundColor(Color.LTGRAY);
-            selectedPlantIconId = "Plant_icon_3";
+            selectedPlantIconId = "3";
         });
 
         // Xử lý chọn chậu
         plantPot1.setOnClickListener(v -> {
             resetPlantPots(view);
             plantPot1.setBackgroundColor(Color.LTGRAY);
-            selectedPlantPotId = "Plant_pot_1";
+            selectedPlantPotId = "1";
         });
 
         plantPot2.setOnClickListener(v -> {
             resetPlantPots(view);
             plantPot2.setBackgroundColor(Color.LTGRAY);
-            selectedPlantPotId = "Plant_pot_2";
+            selectedPlantPotId = "2";
         });
 
         plantPot3.setOnClickListener(v -> {
             resetPlantPots(view);
             plantPot3.setBackgroundColor(Color.LTGRAY);
-            selectedPlantPotId = "Plant_pot_3";
+            selectedPlantPotId = "3";
         });
 
 
         // Xử lý khi nhấn nút "Let's plant"
+        // Inside the "Let's plant" button click listener
         letsPlantButton.setOnClickListener(v -> {
             if (selectedPlantIconId == null || selectedPlantPotId == null) {
                 Toast.makeText(getActivity(), "Please select both a plant and a pot!", Toast.LENGTH_SHORT).show();
             } else {
-                // Xác định giá trị selectIcon
-                if (selectedPlantIconId.equals("Plant_icon_1") && selectedPlantPotId.equals("Plant_pot_1")) {
-                    selectIcon = "i1_p1";
-                } else if (selectedPlantIconId.equals("Plant_icon_1") && selectedPlantPotId.equals("Plant_pot_2")) {
-                    selectIcon = "i1_p2";
-                } else if (selectedPlantIconId.equals("Plant_icon_2") && selectedPlantPotId.equals("Plant_pot_1")) {
-                    selectIcon = "i2_p1";
-                } else if (selectedPlantIconId.equals("Plant_icon_2") && selectedPlantPotId.equals("Plant_pot_2")) {
-                    selectIcon = "i2_p2";
-                }else if (selectedPlantIconId.equals("Plant_icon_3") && selectedPlantPotId.equals("Plant_pot_1")) {
-                    selectIcon = "i3_p1";
-                } else if (selectedPlantIconId.equals("Plant_icon_3") && selectedPlantPotId.equals("Plant_pot_2")) {
-                    selectIcon = "i3_p2";
-                }else if (selectedPlantIconId.equals("Plant_icon_1") && selectedPlantPotId.equals("Plant_pot_3")) {
-                    selectIcon = "i1_p3";
-                }else if (selectedPlantIconId.equals("Plant_icon_2") && selectedPlantPotId.equals("Plant_pot_3")) {
-                    selectIcon = "i2_p3";
-                } else if (selectedPlantIconId.equals("Plant_icon_3") && selectedPlantPotId.equals("Plant_pot_3")) {
-                    selectIcon = "i3_p3";
-                }
+                // Dynamically set the selectIcon
+                selectIcon = selectedPlantIconId + "_" + selectedPlantPotId;
 
-                // Lưu dữ liệu vào SharedPreferences
-                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyApp", getActivity().MODE_PRIVATE);
-                String existingIcons = sharedPreferences.getString("SELECTED_ICONS", "");
-                existingIcons += selectIcon + ",";
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("SELECTED_ICONS", existingIcons);
-                editor.apply();
 
-                // Chuyển sang MainFragment
+                // Create the Plant object with appropriate parameters
+                Plant plant = new Plant("Cây Bonsai", 1, 101, Integer.parseInt(selectedPlantIconId), Integer.parseInt(selectedPlantPotId), 401);
+
+                // Pass the Plant object via Intent
+                Intent intent = new Intent(requireActivity(), MainActivity.class);
+                intent.putExtra("plant_data", plant);
+                startActivity(intent);
+
+
+                // Navigate to HomeFragment
                 requireActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.newPlant, new HomeFragment())
                         .addToBackStack(null)
                         .commit();
             }
         });
+
         return view;
 
     }
