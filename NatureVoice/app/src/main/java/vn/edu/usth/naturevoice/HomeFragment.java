@@ -100,10 +100,10 @@ public class HomeFragment extends Fragment {
                 imageView.setImageResource(R.drawable.cay1chau2);
                 break;
             case "i2_p1":
-                imageView.setImageResource(R.drawable.cay2);
+                imageView.setImageResource(R.drawable.cay2chau1);
                 break;
             case "i2_p2":
-                imageView.setImageResource(R.drawable.chau2);
+                imageView.setImageResource(R.drawable.cay2chau2);
                 break;
             default:
                 break;
