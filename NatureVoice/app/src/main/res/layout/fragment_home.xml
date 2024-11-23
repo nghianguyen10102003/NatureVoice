@@ -42,7 +42,8 @@
             android:id="@+id/image_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"/>
     </ScrollView>
     </FrameLayout>
 </LinearLayout>
