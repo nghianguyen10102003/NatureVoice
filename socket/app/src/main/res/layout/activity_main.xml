@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plant Monitor"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp"
+        android:textStyle="bold" />
+
+    <!-- Temperature -->
+    <TextView
+        android:id="@+id/temperatureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperature: -- °C"
+        android:textSize="18sp"
+        android:paddingBottom="8dp" />
+
+    <!-- Humidity -->
+    <TextView
+        android:id="@+id/humidityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Humidity: -- %"
+        android:textSize="18sp"
+        android:paddingBottom="8dp" />
+
+    <!-- Light -->
+
+    <TextView
+        android:id="@+id/lightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Light: -- lx"
+        android:textSize="18sp"
+        android:paddingBottom="8dp" />
+
+
+
+    <!-- Chat Input -->
+    <EditText
+        android:id="@+id/inputMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Type your message"
+        android:padding="8dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Send Button -->
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Chat Response -->
+    <TextView
+        android:id="@+id/chatResponse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Response will appear here"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:background="#f0f0f0" />
+
+    <TextView
+        android:id="@+id/alert_plant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingBottom="8dp" />
+
+
+</LinearLayout>
