@@ -25,19 +25,21 @@
             android:text="Plant name" />
 
         <EditText
-            android:layout_width="350dp"
+            android:id="@+id/plant_name_input"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/plant_name_input"/>
+            android:hint="Enter Plant Name" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Plant Species" />
 
-        <EditText
-            android:layout_width="350dp"
+        <Spinner
+            android:id="@+id/plant_character_spinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/plant_spec_input"/>
+            android:layout_marginTop="8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

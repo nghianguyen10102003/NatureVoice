@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         Plant plant = (Plant) intent.getSerializableExtra("plant_data");
 
         if (plant != null) {
-            checkLog("Received plant data: " + plant.getName() + ", ID: " + plant.getPlantId());
+            checkLog("Received plant data:Name: " + plant.getName() +"tinh cach :" + plant.getSpecies() +"ID chau:"+plant.getPotId() + "Id cay"+plant.getPlantId());
 
             // Add the Plant object to the ArrayList
             addPlantToList(plant);

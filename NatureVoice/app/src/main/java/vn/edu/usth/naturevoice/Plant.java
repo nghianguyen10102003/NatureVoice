@@ -1,4 +1,5 @@
 package vn.edu.usth.naturevoice;
+
 import java.io.Serializable;
 
 public class Plant implements Serializable {
@@ -11,7 +12,7 @@ public class Plant implements Serializable {
 
     // Constructor
     public Plant(String name, int species, int id, int plantId, int potId, int sensorId) {
-        this.name = name;
+        this.name = String.valueOf(name);
         this.id = id;
         this.plantId = plantId;
         this.potId = potId;
