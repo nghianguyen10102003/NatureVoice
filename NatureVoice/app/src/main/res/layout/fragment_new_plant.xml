@@ -6,42 +6,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddTree"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/addbackground">
     <TextView
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Plant"/>
+        android:text="Add a new plant"
+        android:textSize="30dp"
+        android:textColor="#38ae52"
+        android:fontFamily="@font/shantellsans_bold"/>
     <LinearLayout
-
+        android:layout_marginLeft="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="35dp"
         android:id ="@+id/AddSection">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Plant name" />
+            android:text="Plant name"
+            android:textSize="25dp"
+            android:textColor="#0d522c"
+            android:fontFamily="@font/shantellsans_regular"/>
 
         <EditText
             android:id="@+id/plant_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Plant Name" />
+            android:hint="Enter Plant Name"
+            android:textColor="#0d522c"
+            android:textSize="25dp"
+            android:fontFamily="@font/shantellsans_regular"/>
 
         <TextView
+            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Plant Species" />
+            android:text="Plant Species"
+            android:textSize="25dp"
+            android:textColor="#0d522c"
+            android:fontFamily="@font/shantellsans_regular"/>
 
         <Spinner
+
+            android:textColor="#0d522c"
+            android:fontFamily="@font/shantellsans_regular"
             android:id="@+id/plant_character_spinner"
             android:layout_width="match_parent"
+            android:textSize="25dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+             />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chose your plant"
+            android:textSize="25dp"
+            android:textColor="#0d522c"
+            android:fontFamily="@font/shantellsans_regular"/>
 
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -52,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Plant_icon_1"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginRight="55dp"
                 >
 
@@ -62,7 +91,7 @@
                     android:background="@drawable/round_background" />
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="51dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="12dp"
                     android:src="@drawable/cay1" />
@@ -109,12 +138,17 @@
         </LinearLayout>
 
         <TextView
+            android:textSize="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="Choose plant pot" />
+            android:layout_marginTop="30dp"
+            android:text="Choose your plant pot"
+            android:textColor="#0d522c"
+            android:fontFamily="@font/shantellsans_regular"
+            />
 
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -125,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Plant_pot_1"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginRight="55dp"
                 >
 
@@ -179,12 +213,21 @@
 
 
         <Button
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
-            android:layout_marginLeft="135dp"
+            android:layout_marginLeft="115dp"
             android:text="Lets plant !"
-            android:id="@+id/lets_plant_button"/>
+            android:id="@+id/lets_plant_button"
+            android:backgroundTint="#afffc0"
+            android:fontFamily="@font/shantellsans_bold"
+            android:textSize="18sp"
+            android:padding="12dp"
+            android:textColor="#38ae52"
+
+
+            />
     </LinearLayout>
 
 
