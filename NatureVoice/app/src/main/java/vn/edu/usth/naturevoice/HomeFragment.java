@@ -1,5 +1,6 @@
 package vn.edu.usth.naturevoice;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -98,7 +99,41 @@ public class HomeFragment extends Fragment {
 
                 break;
         }
+        imageView.setOnClickListener(v -> {
+            // Mở màn hình chi tiết cây và truyền thông tin cây
+            Intent intent = new Intent(getActivity(), PlantDetailActivity.class);
+
+            intent.putExtra("tree_name", plant.getName());
+            intent.putExtra("tree_image", getImageResourceForPlant(plant));
+            startActivity(intent);
+        });
 
         linearLayout.addView(imageView);
     }
+    private int getImageResourceForPlant(Plant plant) {
+        String selectIcon = "i" + plant.getPlantId() + "_p" + plant.getPotId();
+        switch (selectIcon) {
+            case "i1_p1":
+                return R.drawable.cay1chau1;
+            case "i1_p2":
+                return R.drawable.cay1chau2;
+            case "i1_p3":
+                return R.drawable.cay1chau3;
+            case "i2_p1":
+                return R.drawable.cay2chau1;
+            case "i2_p2":
+                return R.drawable.cay2chau2;
+            case "i2_p3":
+                return R.drawable.cay2chau3;
+            case "i3_p1":
+                return R.drawable.cay3chau1;
+            case "i3_p2":
+                return R.drawable.cay3chau2;
+            case "i3_p3":
+                return R.drawable.cay3chau3;
+            default:
+                return R.drawable.ava;
+        }
 }
+}
+
