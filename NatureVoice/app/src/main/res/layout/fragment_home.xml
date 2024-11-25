@@ -6,23 +6,29 @@
     android:paddingBottom="80dp"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
-    android:layout_marginBottom="60dp"> <!-- Thêm khoảng cách phía dưới -->
+    android:layout_marginBottom="60dp"
+    android:background="@drawable/addbackground"> <!-- Thêm khoảng cách phía dưới -->
 
     <FrameLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@drawable/round_background">
 
         <TextView
+            android:fontFamily="@font/shantellsans_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Note"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:textColor="#0d522c"/>
+            android:textColor="@color/black" />
     </FrameLayout>
     <TextView
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/shantellsans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Garden"
@@ -30,6 +36,8 @@
         android:textStyle="bold"
         android:textColor="#0d522c"/>
     <FrameLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/round_garden">
