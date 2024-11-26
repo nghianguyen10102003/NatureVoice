@@ -2,15 +2,13 @@ package vn.edu.usth.naturevoice;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,25 +22,40 @@ public class PlantDetailActivity extends AppCompatActivity {
     private TextView temperatureText;
     private TextView humidityText;
     private TextView lightText;
+    private LinearLayout sensorDataLayout;  // Add this line
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_plant_detail);
-        mSocket = SocketSingleton.getInstance();
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+
+        // Initialize views
         temperatureText = findViewById(R.id.temperatureText);
         humidityText = findViewById(R.id.humidityText);
         lightText = findViewById(R.id.lightText);
-//        inputMessage = findViewById(R.id.inputMessage);
+        sensorDataLayout = findViewById(R.id.sensor_data);  // Initialize sensor data layout
 
+        // Set up socket connection
+        mSocket = SocketSingleton.getInstance();
         if (mSocket != null) {
             mSocket.on("sensor_data", onSensorData);
         }
+
+        // Set up the click event for status ImageView
+        ImageView statusImage = findViewById(R.id.status);
+        statusImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle visibility of sensor data layout
+                if (sensorDataLayout.getVisibility() == View.VISIBLE) {
+                    sensorDataLayout.setVisibility(View.GONE);  // Hide it
+                } else {
+                    sensorDataLayout.setVisibility(View.VISIBLE);  // Show it
+                }
+            }
+        });
+
+        // Set tree image and name from intent
         ImageView treeImage = findViewById(R.id.plant_image);
         TextView treeName = findViewById(R.id.plant_name);
 
@@ -64,18 +77,14 @@ public class PlantDetailActivity extends AppCompatActivity {
                         "Temperature: " + temperature +
                         ", Humidity: " + humidity +
                         ", Light: " + light);
+
+                // Update sensor data text
                 temperatureText.setText("Temperature: " + String.format("%.2f", temperature) + " °C");
                 humidityText.setText("Humidity: " + String.format("%.2f", humidity) + " %");
                 lightText.setText("Light: " + String.format("%.2f", light) + " lx");
-
-//                Toast.makeText(PlantDetailActivity.this,
-//                        "Temp: " + temperature + ", Humidity: " + humidity + ", Light: " + light,
-//                        Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {
                 Log.e("SocketIO", "Error parsing sensor data", e);
             }
         }
     });
-
-
 }
