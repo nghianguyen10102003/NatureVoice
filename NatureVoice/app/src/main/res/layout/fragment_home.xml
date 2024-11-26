@@ -13,7 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@drawable/round_background">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,6 +24,33 @@
             android:textSize="30dp"
             android:textStyle="bold"
             android:textColor="#0d522c"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant 1: Good"
+            android:id="@+id/note1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant 2: Good"
+            android:id="@+id/note2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant 3: Good"
+            android:id="@+id/note3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant 4: Good"
+            android:id="@+id/note4"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant 5: Good"
+            android:id="@+id/note5"/>
+
+        </LinearLayout>
     </FrameLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -35,7 +65,7 @@
         android:background="@drawable/round_garden">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_marginBottom="10dp">
 
         <LinearLayout

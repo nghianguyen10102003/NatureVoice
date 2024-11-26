@@ -18,4 +18,51 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/plant_image"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/sensor_data">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant Monitor"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:paddingBottom="16dp"
+            android:textStyle="bold" />
+
+        <!-- Temperature -->
+        <TextView
+            android:id="@+id/temperatureText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temperature: -- °C"
+            android:textSize="18sp"
+            android:paddingBottom="8dp" />
+
+        <!-- Humidity -->
+        <TextView
+            android:id="@+id/humidityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Humidity: -- %"
+            android:textSize="18sp"
+            android:paddingBottom="8dp" />
+
+        <!-- Light -->
+
+        <TextView
+            android:id="@+id/lightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Light: -- lx"
+            android:textSize="18sp"
+            android:paddingBottom="8dp" />
+
+    </LinearLayout>
 </LinearLayout>

@@ -5,13 +5,21 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
 public class HomeFragment extends Fragment {
 
@@ -20,14 +28,19 @@ public class HomeFragment extends Fragment {
     }
 
     private LinearLayout linearLayout;
-
+    private Socket mSocket;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         linearLayout = view.findViewById(R.id.image_container);
+        mSocket = SocketSingleton.getInstance();
+        if (!SocketSingleton.isConnected()) {
+            mSocket.connect();
+        }
 
+        mSocket.on("alert", onAlert);
         // Refresh images based on plant list
         refreshImages();
         return view;
@@ -135,5 +148,46 @@ public class HomeFragment extends Fragment {
                 return R.drawable.ava;
         }
 }
+    private final Emitter.Listener onAlert = args -> {
+        if (args.length > 0) {
+            try {
+                JSONObject data = (JSONObject) args[0];
+                int id = data.getInt("id");
+                String type = data.getString("type");
+                String message = data.getString("message");
+
+                // Chuyển sang UI thread bằng requireActivity().runOnUiThread()
+                requireActivity().runOnUiThread(() -> {
+                    Log.d("SocketIO", "Alert received: " + id +" - " + type + " - " + message);
+
+                    // Ví dụ: Cập nhật giao diện
+                    if (id == 1) {
+                        TextView alertPlantTextView = requireView().findViewById(R.id.note1);
+                        alertPlantTextView.setText("Note1:" + type + " - " + message);
+                    } else if(id == 2){
+                        TextView alertPlantTextView = requireView().findViewById(R.id.note2);
+                        alertPlantTextView.setText("Note2: " + type + " - " + message);
+                    }else if(id == 3){
+                        TextView alertPlantTextView = requireView().findViewById(R.id.note3);
+                        alertPlantTextView.setText("Note3: " + type + " - " + message);
+                    }else if(id == 4){
+                        TextView alertPlantTextView = requireView().findViewById(R.id.note4);
+                        alertPlantTextView.setText("Note4: " + type + " - " + message);
+                    }else if(id == 5){
+                        TextView alertPlantTextView = requireView().findViewById(R.id.note5);
+                        alertPlantTextView.setText("Note5: " + type + " - " + message);
+                    }
+
+
+                    // Hoặc hiển thị Toast
+                    //Toast.makeText(requireActivity(), "ALERT: " + message, Toast.LENGTH_LONG).show();
+                });
+
+            } catch (JSONException e) {
+                Log.e("SocketIO", "Error parsing alert data", e);
+            }
+        }
+    };
+
 }
 

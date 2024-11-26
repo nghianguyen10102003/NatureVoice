@@ -41,7 +41,9 @@ dependencies {
 
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.google.android.flexbox:flexbox:3.0.0")
-
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation ("io.socket:socket.io-client:2.0.0")
+    implementation ("com.google.code.gson:gson:2.10.1")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
