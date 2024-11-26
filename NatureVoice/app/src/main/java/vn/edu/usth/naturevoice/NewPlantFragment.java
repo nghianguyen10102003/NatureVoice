@@ -51,38 +51,38 @@ public class NewPlantFragment extends Fragment {
         // Handle plant icon selection
         plantIcon1.setOnClickListener(v -> {
             resetPlantIcons(view);
-            plantIcon1.setBackgroundColor(Color.LTGRAY);
+            plantIcon1.setSelected(true);
             selectedPlantIconId = "1";
         });
 
         plantIcon2.setOnClickListener(v -> {
             resetPlantIcons(view);
-            plantIcon2.setBackgroundColor(Color.LTGRAY);
+            plantIcon2.setSelected(true);
             selectedPlantIconId = "2";
         });
 
         plantIcon3.setOnClickListener(v -> {
             resetPlantIcons(view);
-            plantIcon3.setBackgroundColor(Color.LTGRAY);
+            plantIcon3.setSelected(true);
             selectedPlantIconId = "3";
         });
 
         // Handle pot selection
         plantPot1.setOnClickListener(v -> {
             resetPlantPots(view);
-            plantPot1.setBackgroundColor(Color.LTGRAY);
+            plantPot1.setSelected(true);
             selectedPlantPotId = "1";
         });
 
         plantPot2.setOnClickListener(v -> {
             resetPlantPots(view);
-            plantPot2.setBackgroundColor(Color.LTGRAY);
+            plantPot2.setSelected(true);
             selectedPlantPotId = "2";
         });
 
         plantPot3.setOnClickListener(v -> {
             resetPlantPots(view);
-            plantPot3.setBackgroundColor(Color.LTGRAY);
+            plantPot3.setSelected(true);
             selectedPlantPotId = "3";
         });
 
@@ -157,14 +157,14 @@ public class NewPlantFragment extends Fragment {
     }
 
     private void resetPlantIcons(View view) {
-        view.findViewById(R.id.Plant_icon_1).setBackgroundColor(Color.TRANSPARENT);
-        view.findViewById(R.id.Plant_icon_2).setBackgroundColor(Color.TRANSPARENT);
-        view.findViewById(R.id.Plant_icon_3).setBackgroundColor(Color.TRANSPARENT);
+        view.findViewById(R.id.Plant_icon_1).setSelected(false);
+        view.findViewById(R.id.Plant_icon_2).setSelected(false);
+        view.findViewById(R.id.Plant_icon_3).setSelected(false);
     }
 
     private void resetPlantPots(View view) {
-        view.findViewById(R.id.Plant_pot_1).setBackgroundColor(Color.TRANSPARENT);
-        view.findViewById(R.id.Plant_pot_2).setBackgroundColor(Color.TRANSPARENT);
-        view.findViewById(R.id.Plant_pot_3).setBackgroundColor(Color.TRANSPARENT);
+        view.findViewById(R.id.Plant_pot_1).setSelected(false);
+        view.findViewById(R.id.Plant_pot_2).setSelected(false);
+        view.findViewById(R.id.Plant_pot_3).setSelected(false);
     }
 }
