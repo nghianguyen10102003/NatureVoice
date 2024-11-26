@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
      */
     private void addImageView(Plant plant) {
         ImageView imageView = new ImageView(getActivity());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(170, 170);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(250, 250);
 
         // Set margins for the LayoutParams
         layoutParams.setMargins(0, 0, 0, 20); // Left, Top, Right, Bottom
