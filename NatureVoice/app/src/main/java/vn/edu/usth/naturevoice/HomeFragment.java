@@ -6,8 +6,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -103,6 +105,7 @@ public class HomeFragment extends Fragment {
 
     private void addImageView(Plant plant) {
         // Tạo một FrameLayout để chứa toàn bộ cây và thông báo
+        Typeface customFont = ResourcesCompat.getFont(getActivity(), R.font.shantellsans_regular);
         FrameLayout plantContainer = new FrameLayout(getActivity());
         plantContainer.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -181,6 +184,7 @@ public class HomeFragment extends Fragment {
         nameTextView.setTextSize(16); // Kích thước chữ
         nameTextView.setTextColor(getResources().getColor(R.color.black)); // Màu chữ
         nameTextView.setGravity(Gravity.CENTER_VERTICAL);
+        nameTextView.setTypeface(customFont);
 
         // Thêm ImageView và TextView vào LinearLayout ngang
         horizontalLayout.addView(imageView);
@@ -198,6 +202,7 @@ public class HomeFragment extends Fragment {
         bubbleTextView.setTextSize(12);
         bubbleTextView.setTextColor(getResources().getColor(R.color.black));
         bubbleTextView.setPadding(10, 5, 10, 5);
+        bubbleTextView.setTypeface(customFont);
 
         // Hiển thị nội dung thông báo từ Plant
         if (plant.getNoti_message() != null && !plant.getNoti_message().isEmpty() && !plant.getNoti_type().equals("default")) {
