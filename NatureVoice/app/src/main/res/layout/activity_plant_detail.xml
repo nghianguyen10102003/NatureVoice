@@ -6,15 +6,29 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlantDetailActivity">
+    tools:context=".PlantDetailActivity"
+    android:background="@drawable/dt">
+
 
     <TextView
         android:layout_marginTop="50dp"
+        android:layout_marginLeft="25dp"
+        android:textSize="30dp"
+        android:fontFamily="@font/shantellsans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/plant_name"/>
-
     <ImageView
+        android:id="@+id/status"
+        android:layout_marginLeft="340dp"
+        android:layout_width="65dp"
+        android:layout_height="60dp"
+        android:background="@drawable/status">
+
+    </ImageView>
+    <ImageView
+        android:layout_marginTop="55dp"
+        android:layout_gravity="center"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/plant_image"/>
@@ -23,9 +37,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/sensor_data">
+        android:id="@+id/sensor_data"
+        android:visibility="gone"> <!-- Initially hidden -->
 
-
+        <!-- TextViews for sensor data -->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -55,7 +70,6 @@
             android:paddingBottom="8dp" />
 
         <!-- Light -->
-
         <TextView
             android:id="@+id/lightText"
             android:layout_width="wrap_content"
@@ -63,6 +77,6 @@
             android:text="Light: -- lx"
             android:textSize="18sp"
             android:paddingBottom="8dp" />
-
     </LinearLayout>
+
 </LinearLayout>

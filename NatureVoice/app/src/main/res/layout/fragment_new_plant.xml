@@ -79,17 +79,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id = "@+id/Plant_icon"
+
             >
 
             <FrameLayout
+                android:background="@drawable/plant_selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Plant_icon_1"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="55dp"
+
                 >
 
                 <ImageView
+
                     android:layout_width="70dp"
                     android:layout_height="50dp"
                     android:background="@drawable/round_background" />
@@ -103,6 +107,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:background="@drawable/plant_selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Plant_icon_2"
@@ -122,6 +127,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:background="@drawable/plant_selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Plant_icon_3">
@@ -152,20 +158,20 @@
             />
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:id="@+id/Plant_pots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            android:id = "@+id/Plant_pots"
             >
 
             <FrameLayout
+                android:background="@drawable/plant_selector"
+                android:id="@+id/Plant_pot_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/Plant_pot_1"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="55dp"
-                >
+                android:layout_marginRight="55dp">
 
                 <ImageView
                     android:layout_width="70dp"
@@ -179,10 +185,12 @@
                     android:src="@drawable/chau1" />
 
             </FrameLayout>
+
             <FrameLayout
+                android:background="@drawable/plant_selector"
+                android:id="@+id/Plant_pot_2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Plant_pot_2">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="70dp"
@@ -196,10 +204,12 @@
                     android:src="@drawable/chau2" />
 
             </FrameLayout>
+
             <FrameLayout
+                android:background="@drawable/plant_selector"
+                android:id="@+id/Plant_pot_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/Plant_pot_3"
                 android:layout_marginLeft="55dp">
 
                 <ImageView
@@ -215,23 +225,34 @@
             </FrameLayout>
         </LinearLayout>
 
-
-        <Button
-
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="80dp"
-            android:layout_marginLeft="115dp"
-            android:text="Lets plant !"
-            android:id="@+id/lets_plant_button"
-            android:backgroundTint="#afffc0"
-            android:fontFamily="@font/shantellsans_bold"
-            android:textSize="18sp"
-            android:padding="12dp"
-            android:textColor="#38ae52"
+            android:layout_marginLeft="115dp">
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:background="@drawable/round_background">
+
+            </ImageView>
+            <Button
+
+                android:id="@+id/lets_plant_button"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#afffc0"
+                android:fontFamily="@font/shantellsans_bold"
+                android:padding="12dp"
+                android:text="Lets plant !"
+                android:textColor="#38ae52"
+                android:textSize="18sp"
 
 
-            />
+                />
+        </FrameLayout>
     </LinearLayout>
 
 
