@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
     }
 
     private LinearLayout linearLayout;
+    private LinearLayout noteContainer;
     private Socket mSocket;
 
     @Override
@@ -44,6 +45,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         linearLayout = view.findViewById(R.id.image_container);
+        noteContainer = view.findViewById(R.id.note_container); // Lấy container Note
+
         mSocket = SocketSingleton.getInstance();
         if (!SocketSingleton.isConnected()) {
             mSocket.connect();
@@ -75,16 +78,27 @@ public class HomeFragment extends Fragment {
 
         if (plantList != null && !plantList.isEmpty()) {
             for (Plant plant : plantList) {
+                Log.d("Homefragment", "get ID " + plant.getId());
                 addImageView(plant);
             }
         }
     }
-
+    private void addNoteToContainer(int id, String type, String message) {
+        if (noteContainer != null) {
+            TextView newNote = new TextView(getActivity());
+            newNote.setText("plant " + id +  ": " +type + " - " + message);
+            newNote.setTextSize(16);
+            newNote.setTextColor(getResources().getColor(R.color.black));
+            newNote.setPadding(0, 5, 0, 5); // Khoảng cách giữa các note
+            noteContainer.addView(newNote, 0); // Thêm thông báo mới vào trên cùng
+        }
+    }
     /**
      * Add an ImageView for a specific Plant object.
      *
      * @param plant The Plant object to display.
      */
+
 
 
     private void addImageView(Plant plant) {
@@ -151,6 +165,7 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getActivity(), PlantDetailActivity.class);
             intent.putExtra("tree_name", plant.getName());
             intent.putExtra("tree_image", getImageResourceForPlant(plant));
+            intent.putExtra("tree_avatar", getLogoForPlant(plant));
             startActivity(intent);
         });
 
@@ -202,6 +217,20 @@ public class HomeFragment extends Fragment {
         linearLayout.addView(plantContainer);
     }
 
+    private int getLogoForPlant(Plant plant){
+        int select_ava = plant.getPlantId();
+        switch (select_ava) {
+            case 1:
+                return R.drawable.cay1;
+            case 2:
+                return R.drawable.cay2;
+            case 3:
+                return R.drawable.cay3;
+            default:
+                return R.drawable.ava;
+        }
+
+    }
 
     private int getImageResourceForPlant(Plant plant) {
         String selectIcon = "i" + plant.getPlantId() + "_p" + plant.getPotId();
@@ -278,7 +307,7 @@ public class HomeFragment extends Fragment {
                     }
                 }
             }
-
+            addNoteToContainer(id,type, message);
             // Làm mới giao diện
             refreshImages();
         }

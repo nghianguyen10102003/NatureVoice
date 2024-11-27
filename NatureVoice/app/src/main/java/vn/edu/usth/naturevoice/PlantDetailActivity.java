@@ -79,12 +79,14 @@ public class PlantDetailActivity extends AppCompatActivity {
         // Set tree image and name from intent
         ImageView treeImage = findViewById(R.id.plant_image);
         TextView treeName = findViewById(R.id.plant_name);
+        ImageView tree_avatar = findViewById(R.id.plant_avatar);
 
         int imageResId = getIntent().getIntExtra("tree_image", R.drawable.ava);
         String name = getIntent().getStringExtra("tree_name");
-
+        int tree_ava = getIntent().getIntExtra("tree_avatar", R.drawable.ava);
         treeImage.setImageResource(imageResId);
         treeName.setText(name);
+        tree_avatar.setImageResource(tree_ava);
     }
 
     private final Emitter.Listener onSensorData = args -> runOnUiThread(() -> {
