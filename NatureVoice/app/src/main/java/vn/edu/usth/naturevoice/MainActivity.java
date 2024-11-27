@@ -34,12 +34,13 @@ public class MainActivity extends AppCompatActivity {
     private static final String PLANT_LIST_KEY = "plant_list";
     private Socket mSocket;
     private ArrayList<Plant> plantList = new ArrayList<>(); // ArrayList to store Plant objects
-
+    private ArrayList<Integer> noti_list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         // Socket
         mSocket = SocketSingleton.getInstance();
@@ -51,7 +52,12 @@ public class MainActivity extends AppCompatActivity {
         mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
 //        mSocket.on("alert", onAlert);
 
+        Intent serviceIntent = new Intent(this, AlertService.class);
+        startService(serviceIntent);
 
+        // Truyền danh sách cây nếu cần
+        AlertService alertService = new AlertService();
+        alertService.setPlantList(plantList);
 
 
         // Load plantList from SharedPreferences
@@ -116,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+
 
     private final Emitter.Listener onConnect = args -> runOnUiThread(() -> {
         Log.d("SocketIO", "Connected to server");

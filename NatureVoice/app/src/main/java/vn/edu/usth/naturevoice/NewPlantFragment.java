@@ -25,6 +25,12 @@ public class NewPlantFragment extends Fragment {
     private String selectedPlantIconId = null; // Lưu ID của cây được chọn
     private String selectedPlantPotId = null; // Lưu ID của chậu được chọn
     private String selectIcon = null;
+    private static int plantIdCounter = 1; // ID tự tăng, bắt đầu từ 1
+
+    // Phương thức để lấy ID tiếp theo
+    public static int getNextPlantId() {
+        return plantIdCounter++;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,9 +116,9 @@ public class NewPlantFragment extends Fragment {
 
             // Dynamically set the selectIcon
             selectIcon = selectedPlantIconId + "_" + selectedPlantPotId;
-
+            int plantId = getNextPlantId();
             // Create the Plant object with appropriate parameters
-            Plant plant = new Plant(plantName, charId, '1',
+            Plant plant = new Plant(plantName, charId, plantId,
                     Integer.parseInt(selectedPlantIconId),
                     Integer.parseInt(selectedPlantPotId),'1'
             );

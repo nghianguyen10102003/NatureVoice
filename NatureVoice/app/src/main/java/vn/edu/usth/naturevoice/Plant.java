@@ -1,5 +1,7 @@
 package vn.edu.usth.naturevoice;
 
+import android.widget.TextView;
+
 import java.io.Serializable;
 
 public class Plant implements Serializable {
@@ -9,7 +11,9 @@ public class Plant implements Serializable {
     private int potId;
     private int species; // Changed Species to species for naming consistency
     private int sensorId;
-
+    private TextView bubbleTextView;
+    private String noti_type;
+    private String noti_message;
     // Constructor
     public Plant(String name, int species, int id, int plantId, int potId, int sensorId) {
         this.name = String.valueOf(name);
@@ -28,6 +32,22 @@ public class Plant implements Serializable {
     public int getId() {
         return id;
     }
+    public TextView getBubbleTextView() {
+        return bubbleTextView;
+    }
+
+
+    public void setBubbleTextView(TextView bubbleTextView) {
+        this.bubbleTextView = bubbleTextView;
+    }
+
+    public void setNoti_type(String noti_type) {this.noti_type = noti_type;}
+
+    public String getNoti_type() {return noti_type;}
+
+    public void setNoti_message(String noti_message) {this.noti_message = noti_message;}
+
+    public String getNoti_message() {return noti_message;}
 
     public int getPlantId() {
         return plantId;
