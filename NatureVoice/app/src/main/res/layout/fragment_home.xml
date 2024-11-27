@@ -58,9 +58,11 @@
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:layout_marginBottom="10dp"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        >
 
         <LinearLayout
+
             android:id="@+id/image_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
