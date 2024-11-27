@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,8 +17,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.List;
+
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PlantDetailActivity extends AppCompatActivity {
 
@@ -25,6 +37,12 @@ public class PlantDetailActivity extends AppCompatActivity {
     private TextView humidityText;
     private TextView lightText;
     private LinearLayout sensorDataLayout;  // Add this line
+
+    private static final String API_URL = "http://192.168.1.140:5000/api/plant_chat";
+    ChatHistory chatHistory = new ChatHistory();
+    private EditText inputMessage;
+    private Button sendButton;
+    private TextView chatResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +55,28 @@ public class PlantDetailActivity extends AppCompatActivity {
         lightText = findViewById(R.id.lightText);
         sensorDataLayout = findViewById(R.id.sensor_data);  // Initialize sensor data layout
 
+        inputMessage = findViewById(R.id.inputMessage);
+        sendButton = findViewById(R.id.sendButton);
+        chatResponse = findViewById(R.id.chatResponse);
+
         // Set up socket connection
         mSocket = SocketSingleton.getInstance();
         if (mSocket != null) {
             mSocket.on("sensor_data", onSensorData);
         }
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = inputMessage.getText().toString().trim();
+                if (!message.isEmpty()) {
+                    sendChatMessage(message);
+                    chatHistory.addUserMessage(message); // Send message to the server
+                } else {
+                    Toast.makeText(PlantDetailActivity.this, "Please enter a message", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         // Set up the click event for status ImageView
         ImageView statusImage = findViewById(R.id.status);
@@ -110,4 +145,81 @@ public class PlantDetailActivity extends AppCompatActivity {
             }
         }
     });
+
+    private void sendChatMessage(String message) {
+        OkHttpClient client = new OkHttpClient();
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("message", message);
+        } catch (JSONException e) {
+            Log.e("API", "Error creating JSON", e);
+        }
+
+        RequestBody body = RequestBody.create(
+                jsonObject.toString(),
+                MediaType.parse("application/json")
+        );
+
+        Request request = new Request.Builder()
+                .url(API_URL)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("API", "Failed to send chat message", e);
+                runOnUiThread(() -> chatResponse.setText("Error: Could not connect to server"));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String responseBody = response.body().string();
+                    try {
+                        JSONObject jsonResponse = new JSONObject(responseBody);
+                        String serverResponse = jsonResponse.getString("response");
+
+                        Log.d("API", "Chat response: " + serverResponse);
+                        runOnUiThread(() -> {
+
+                            chatHistory.addBotMessage(serverResponse);
+                            // Update UI with response
+                            updateChatResponse();
+                            inputMessage.setText(""); // Clear the input field
+                        });
+                    } catch (JSONException e) {
+                        Log.e("API", "Error parsing server response", e);
+                    }
+                } else {
+                    Log.e("API", "Failed to get valid response");
+                    runOnUiThread(() -> chatResponse.setText("Error: Invalid response from server"));
+                }
+            }
+        });
+    }
+    private void updateChatResponse() {
+        StringBuilder chatDisplay = new StringBuilder();
+
+        // Lấy danh sách tin nhắn user và bot
+        List<String> userMessages = chatHistory.getUserMessages();
+        List<String> botMessages = chatHistory.getBotMessages();
+
+        int maxLength = Math.max(userMessages.size(), botMessages.size());
+
+        // Duyệt qua danh sách xen kẽ user và bot
+        for (int i = 0; i < maxLength; i++) {
+            if (i < userMessages.size()) {
+                chatDisplay.append("User: ").append(userMessages.get(i)).append("\n");
+            }
+            if (i < botMessages.size()) {
+                chatDisplay.append("Bot: ").append(botMessages.get(i)).append("\n");
+            }
+        }
+
+        // Cập nhật chatResponse để hiển thị toàn bộ lịch sử
+        chatResponse.setText(chatDisplay.toString());
+    }
 }

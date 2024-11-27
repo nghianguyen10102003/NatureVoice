@@ -50,6 +50,38 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:id="@+id/plant_image" />
+
+        <!-- Chat Input -->
+        <EditText
+            android:id="@+id/inputMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Type your message"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Send Button -->
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Chat Response -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/chatResponse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Response will appear here"
+                android:textSize="18sp"
+                android:padding="8dp"
+                android:background="#f0f0f0" />
+        </ScrollView>
+
     </LinearLayout>
 
     <!-- Dữ liệu cảm biến (Overlay) -->
@@ -195,6 +227,8 @@
                 android:fontFamily="@font/shantellsans_regular"
                 android:textColor="#000000" />
         </LinearLayout>
+
+
     </LinearLayout>
 
 </FrameLayout>
