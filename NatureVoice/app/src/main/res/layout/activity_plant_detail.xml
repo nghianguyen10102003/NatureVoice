@@ -1,82 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PlantDetailActivity"
     android:background="@drawable/dt">
 
-
-    <TextView
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="25dp"
-        android:textSize="30dp"
-        android:fontFamily="@font/shantellsans_bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/plant_name"/>
-    <ImageView
-        android:id="@+id/status"
-        android:layout_marginLeft="340dp"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
-        android:background="@drawable/status">
-
-    </ImageView>
-    <ImageView
-        android:layout_marginTop="55dp"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/plant_image"/>
-
+    <!-- Nội dung chính -->
     <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Tên cây -->
+        <TextView
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="25dp"
+            android:textSize="30dp"
+            android:fontFamily="@font/shantellsans_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/plant_name" />
+
+        <!-- Biểu tượng trạng thái -->
+        <ImageView
+            android:id="@+id/status"
+            android:layout_marginLeft="340dp"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:background="@drawable/status" />
+
+        <!-- Hình ảnh cây -->
+        <ImageView
+            android:layout_marginTop="55dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/plant_image" />
+    </LinearLayout>
+
+    <!-- Dữ liệu cảm biến (Overlay) -->
+    <LinearLayout
+        android:id="@+id/sensor_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/sensor_data"
-        android:visibility="gone"> <!-- Initially hidden -->
+        android:visibility="gone"
+        android:background="@drawable/monitor"
+        android:padding="16dp"
+        android:layout_gravity="bottom"
+        android:elevation="8dp">
 
-        <!-- TextViews for sensor data -->
+        <!-- Tiêu đề -->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Plant Monitor"
-            android:textSize="24sp"
-            android:layout_gravity="center"
-            android:paddingBottom="16dp"
+            android:textSize="22sp"
+            android:fontFamily="@font/shantellsans_bold"
+            android:textColor="#000000"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="12dp"
             android:textStyle="bold" />
 
-        <!-- Temperature -->
-        <TextView
-            android:id="@+id/temperatureText"
-            android:layout_width="wrap_content"
+        <!-- Nhiệt độ -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Temperature: -- °C"
-            android:textSize="18sp"
-            android:paddingBottom="8dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_background">
 
-        <!-- Humidity -->
-        <TextView
-            android:id="@+id/humidityText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Humidity: -- %"
-            android:textSize="18sp"
-            android:paddingBottom="8dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/thermometer"
+                    android:contentDescription="Temperature Icon" />
 
-        <!-- Light -->
-        <TextView
-            android:id="@+id/lightText"
-            android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/temperatureText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text=" -- °C"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/shantellsans_regular"
+                    android:textColor="#000000" />
+            </LinearLayout>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="temperature"
+                android:textSize="18sp"
+                android:fontFamily="@font/shantellsans_regular"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <!-- Độ ẩm -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Light: -- lx"
-            android:textSize="18sp"
-            android:paddingBottom="8dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_background">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/water_drop"
+                    android:contentDescription="Humidity Icon" />
+
+                <TextView
+                    android:id="@+id/humidityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="-- %"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/shantellsans_regular"
+                    android:textColor="#000000" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Humidity"
+                android:textSize="18sp"
+                android:fontFamily="@font/shantellsans_regular"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+        <!-- Ánh sáng -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_background">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/sun"
+                    android:contentDescription="Light Icon" />
+
+                <TextView
+                    android:id="@+id/lightText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="-- lx"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/shantellsans_regular"
+                    android:textColor="#000000" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="lighting"
+                android:textSize="18sp"
+                android:fontFamily="@font/shantellsans_regular"
+                android:textColor="#000000" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

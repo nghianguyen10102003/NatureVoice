@@ -3,6 +3,8 @@ package vn.edu.usth.naturevoice;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,14 +48,33 @@ public class PlantDetailActivity extends AppCompatActivity {
         statusImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toggle visibility of sensor data layout
                 if (sensorDataLayout.getVisibility() == View.VISIBLE) {
-                    sensorDataLayout.setVisibility(View.GONE);  // Hide it
+                    // Hiệu ứng trượt xuống khi ẩn
+                    Animation slideOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_down);
+                    slideOut.setAnimationListener(new Animation.AnimationListener() {
+                        public void onAnimationStart(Animation animation) {
+                            // Không cần xử lý
+                        }
+
+                        public void onAnimationEnd(Animation animation) {
+                            sensorDataLayout.setVisibility(View.GONE);
+                        }
+
+                        public void onAnimationRepeat(Animation animation) {
+                            // Không cần xử lý
+                        }
+                    });
+                    sensorDataLayout.startAnimation(slideOut);
                 } else {
-                    sensorDataLayout.setVisibility(View.VISIBLE);  // Show it
+                    // Hiển thị trước khi bắt đầu hiệu ứng
+                    sensorDataLayout.setVisibility(View.VISIBLE);
+                    // Hiệu ứng trượt lên khi hiển thị
+                    Animation slideIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_up);
+                    sensorDataLayout.startAnimation(slideIn);
                 }
             }
         });
+
 
         // Set tree image and name from intent
         ImageView treeImage = findViewById(R.id.plant_image);

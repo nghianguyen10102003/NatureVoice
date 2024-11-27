@@ -32,20 +32,20 @@
             android:textSize="25dp"
             android:textColor="#0d522c"
             android:fontFamily="@font/shantellsans_regular"/>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_garden"
-            android:layout_marginRight="25dp">
+
             <EditText
+
+
+                android:layout_marginRight="20dp"
+                android:background="@drawable/custom_input"
                 android:id="@+id/plant_name_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Plant Name"
+                android:hint="  Enter Plant Name"
                 android:textColor="#0d522c"
                 android:textSize="25dp"
                 android:fontFamily="@font/shantellsans_regular"/>
-        </FrameLayout>
+
         <TextView
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
