@@ -6,7 +6,7 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 
 public class SocketSingleton {
-    private static final String SOCKET_SERVER_URL = "http://192.168.1.117:5000";
+    private static final String SOCKET_SERVER_URL = "http://192.168.66.19:5000";
     private static io.socket.client.Socket mSocket;
 
     // Private constructor để ngăn khởi tạo từ bên ngoài

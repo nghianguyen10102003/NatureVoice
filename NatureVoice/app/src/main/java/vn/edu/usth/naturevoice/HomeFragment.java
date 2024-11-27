@@ -1,5 +1,7 @@
 package vn.edu.usth.naturevoice;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -46,7 +49,7 @@ public class HomeFragment extends Fragment {
             mSocket.connect();
         }
         IntentFilter filter = new IntentFilter("vn.edu.usth.naturevoice.UPDATE_UI");
-        requireActivity().registerReceiver(updateReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(updateReceiver, filter);
 
 //        mSocket.on("alert", onAlert);
         // Refresh images based on plant list
@@ -57,7 +60,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        requireActivity().unregisterReceiver(updateReceiver);
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(updateReceiver);
 
     }
 
@@ -200,7 +203,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     private int getImageResourceForPlant(Plant plant) {
         String selectIcon = "i" + plant.getPlantId() + "_p" + plant.getPotId();
         switch (selectIcon) {
@@ -228,7 +230,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-//    private final Emitter.Listener onAlert = args -> {
+    //    private final Emitter.Listener onAlert = args -> {
 //        if (args.length > 0) {
 //            try {
 //                JSONObject data = (JSONObject) args[0];
@@ -257,23 +259,27 @@ public class HomeFragment extends Fragment {
 //        }
 //
 //    };
-    private final AlertReceiver updateReceiver = new AlertReceiver() {
+    private final BroadcastReceiver updateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             int id = intent.getIntExtra("id", -1);
             String type = intent.getStringExtra("type");
             String message = intent.getStringExtra("message");
 
-            Log.d("HomeFragment", "Received alert update: " + id + " - " + type + " - " + message);
+            Log.d(TAG, "Received alert update: " + id + " - " + type + " - " + message);
 
-            // Cập nhật giao diện hoặc danh sách cây tại đây
+            // Cập nhật danh sách cây
             ArrayList<Plant> plantList = ((MainActivity) requireActivity()).getPlantList();
+            if (plantList != null) {
                 for (Plant plant : plantList) {
                     if (plant.getPlantId() == id) {
                         plant.setNoti_type(type);
                         plant.setNoti_message(message);
                     }
                 }
+            }
+
+            // Làm mới giao diện
             refreshImages();
         }
     };

@@ -53,11 +53,8 @@ public class MainActivity extends AppCompatActivity {
 //        mSocket.on("alert", onAlert);
 
         Intent serviceIntent = new Intent(this, AlertService.class);
+        serviceIntent.putExtra("plant_list", plantList); // Pass the plant list to the service
         startService(serviceIntent);
-
-        // Truyền danh sách cây nếu cần
-        AlertService alertService = new AlertService();
-        alertService.setPlantList(plantList);
 
 
         // Load plantList from SharedPreferences

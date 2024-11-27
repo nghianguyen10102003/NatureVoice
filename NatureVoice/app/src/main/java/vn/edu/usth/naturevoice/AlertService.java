@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,7 +46,7 @@ public class AlertService extends Service {
 
                 Log.d(TAG, "Alert received: " + id + " - " + type + " - " + message);
 
-                // Update the plant list and send broadcast to UI
+                // Update the plant list if available
                 if (plantList != null) {
                     for (Plant plant : plantList) {
                         if (plant.getPlantId() == id) {
@@ -54,12 +56,12 @@ public class AlertService extends Service {
                     }
                 }
 
-                // Send broadcast to update UI in HomeFragment
+                // Send a broadcast to update UI in fragments/activities
                 Intent intent = new Intent("vn.edu.usth.naturevoice.UPDATE_UI");
                 intent.putExtra("id", id);
                 intent.putExtra("type", type);
                 intent.putExtra("message", message);
-                sendBroadcast(intent);
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
             } catch (JSONException e) {
                 Log.e(TAG, "Error parsing alert data", e);
@@ -70,6 +72,12 @@ public class AlertService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "AlertService is running");
+
+        // If plant list is passed, initialize it
+        if (intent != null && intent.hasExtra("plant_list")) {
+            plantList = (ArrayList<Plant>) intent.getSerializableExtra("plant_list");
+        }
+
         return START_STICKY; // Keep the service running
     }
 
@@ -78,7 +86,7 @@ public class AlertService extends Service {
         super.onDestroy();
         Log.d(TAG, "AlertService stopped");
 
-        // Remove the alert listener and disconnect the socket
+        // Remove socket listener and disconnect
         if (mSocket != null) {
             mSocket.off("alert", onAlert);
             mSocket.disconnect();
@@ -87,10 +95,6 @@ public class AlertService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null; // This service is not bound
-    }
-
-    public void setPlantList(ArrayList<Plant> plantList) {
-        this.plantList = plantList;
+        return null; // Not used in this implementation
     }
 }
