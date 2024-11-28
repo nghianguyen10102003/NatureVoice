@@ -9,10 +9,32 @@
     android:layout_marginBottom="60dp"
     android:background="@drawable/addbackground"> <!-- Thêm khoảng cách phía dưới -->
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="54dp"
+            android:layout_height="120dp"
+            android:background="@drawable/ava">
+
+        </ImageView>
+        <TextView
+            android:layout_marginTop="26dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nature voice"
+            android:layout_marginLeft="10dp"
+            android:textColor="#38ae52"
+            android:fontFamily="@font/shantellsans_bold"
+            android:textSize="28dp">
+
+        </TextView>
+    </LinearLayout>
     <FrameLayout
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@drawable/round_background">
