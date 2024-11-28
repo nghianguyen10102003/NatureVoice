@@ -25,6 +25,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -34,6 +37,7 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
         // Required empty public constructor
     }
+    private Map<Integer, List<TextView>> notificationMap = new HashMap<>();
 
     private LinearLayout linearLayout;
     private LinearLayout noteContainer;
@@ -91,6 +95,11 @@ public class HomeFragment extends Fragment {
             newNote.setTextColor(getResources().getColor(R.color.black));
             newNote.setPadding(0, 5, 0, 5); // Khoảng cách giữa các note
             noteContainer.addView(newNote, 0); // Thêm thông báo mới vào trên cùng
+
+            if (!notificationMap.containsKey(id)) {
+                notificationMap.put(id, new ArrayList<>());
+            }
+            notificationMap.get(id).add(newNote);
         }
     }
     /**
@@ -295,8 +304,13 @@ public class HomeFragment extends Fragment {
             String type = intent.getStringExtra("type");
             String message = intent.getStringExtra("message");
 
-            Log.d(TAG, "Received alert update: " + id + " - " + type + " - " + message);
-
+            Log.d("HomeFragment", "Received alert update: " + id + " - " + type + " - " + message);
+            if ("default".equals(type)) {
+                removePreviousAlertsForId(id);
+            } else {
+                // Nếu không phải 'default', thêm thông báo mới
+                addNoteToContainer(id, type, message);
+            }
             // Cập nhật danh sách cây
             ArrayList<Plant> plantList = ((MainActivity) requireActivity()).getPlantList();
             if (plantList != null) {
@@ -307,9 +321,19 @@ public class HomeFragment extends Fragment {
                     }
                 }
             }
-            addNoteToContainer(id,type, message);
+
             // Làm mới giao diện
             refreshImages();
         }
     };
+    private void removePreviousAlertsForId(int id) {
+        // Kiểm tra xem có thông báo nào trước đó cho id này không
+        if (notificationMap.containsKey(id)) {
+            List<TextView> notes = notificationMap.get(id);
+            for (TextView note : notes) {
+                noteContainer.removeView(note);  // Xóa thông báo khỏi giao diện
+            }
+            notes.clear();  // Xóa khỏi Map
+        }
+    }
 }
