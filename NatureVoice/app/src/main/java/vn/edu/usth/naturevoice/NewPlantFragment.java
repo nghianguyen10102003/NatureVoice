@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +30,7 @@ public class NewPlantFragment extends Fragment {
     private static int plantIdCounter = 1; // ID tự tăng, bắt đầu từ 1
 
     // Phương thức để lấy ID tiếp theo
-    public static int getNextPlantId() {
-        return plantIdCounter++;
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,7 +116,8 @@ public class NewPlantFragment extends Fragment {
 
             // Dynamically set the selectIcon
             selectIcon = selectedPlantIconId + "_" + selectedPlantPotId;
-            int plantId = getNextPlantId();
+            int plantId = ((MainActivity) getActivity()).getNextPlantId();
+            Log.d("newplant", "id: " + plantId);
             // Create the Plant object with appropriate parameters
             Plant plant = new Plant(plantName, charId, plantId,
                     Integer.parseInt(selectedPlantIconId),

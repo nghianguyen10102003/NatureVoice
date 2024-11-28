@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final String PREFS_NAME = "PlantPrefs";
     private static final String PLANT_LIST_KEY = "plant_list";
+    private static final String LAST_PLANT_ID_KEY = "last_plant_id";
     private Socket mSocket;
     private ArrayList<Plant> plantList = new ArrayList<>(); // ArrayList to store Plant objects
     private ArrayList<Integer> noti_list = new ArrayList<>();
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
+        int lastPlantId = loadLastPlantId();
+        Log.d(TAG, "Last Plant ID: " + lastPlantId);
         // Socket
         mSocket = SocketSingleton.getInstance();
         if (!SocketSingleton.isConnected()) {
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         Plant plant = (Plant) intent.getSerializableExtra("plant_data");
 
         if (plant != null) {
-            checkLog("Received plant data:Name: " + plant.getName() +"tinh cach :" + plant.getSpecies() +"ID chau:"+plant.getPotId() + "Id cay"+plant.getPlantId());
+            checkLog("Received plant data:Name: " + plant.getName() +"tinh cach :" + plant.getSpecies() +"ID chau:"+plant.getPotId() + "Id cay"+plant.getId());
 
             // Add the Plant object to the ArrayList
             addPlantToList(plant);
@@ -176,7 +178,24 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    });
 
+    private void saveLastPlantId(int plantId) {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(LAST_PLANT_ID_KEY, plantId);
+        editor.apply();
+    }
 
+    // Đọc id cây cuối cùng từ SharedPreferences
+    private int loadLastPlantId() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        return sharedPreferences.getInt(LAST_PLANT_ID_KEY, 0); // Giá trị mặc định là 0 nếu chưa có
+    }
+    public int getNextPlantId() {
+        // Lấy id cây tiếp theo từ SharedPreferences
+        int nextPlantId = loadLastPlantId() + 1;  // Tăng lên 1
+        saveLastPlantId(nextPlantId);  // Lưu lại id cây tiếp theo
+        return nextPlantId;
+    }
     /**
      * Replace the current fragment with the specified fragment.
      *

@@ -49,7 +49,7 @@ public class AlertService extends Service {
                 // Update the plant list if available
                 if (plantList != null) {
                     for (Plant plant : plantList) {
-                        if (plant.getPlantId() == id) {
+                        if (plant.getId() == id) {
                             plant.setNoti_type(type);
                             plant.setNoti_message(message);
                         }
