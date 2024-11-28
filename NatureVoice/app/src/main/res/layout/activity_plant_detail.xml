@@ -41,7 +41,7 @@
             android:layout_marginLeft="340dp"
             android:layout_width="65dp"
             android:layout_height="60dp"
-            android:background="@drawable/status" />
+            android:background="@drawable/status_quo" />
 
         <!-- Hình ảnh cây -->
         <ImageView
@@ -50,40 +50,78 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:id="@+id/plant_image" />
-
-        <!-- Chat Input -->
-        <EditText
-            android:id="@+id/inputMessage"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Type your message"
-            android:padding="8dp"
-            android:layout_marginBottom="8dp" />
-
-        <!-- Send Button -->
-        <Button
-            android:id="@+id/sendButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Send"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Chat Response -->
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/chatResponse"
-                android:layout_width="match_parent"
+            android:background="@drawable/monitor">
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Response will appear here"
-                android:textSize="18sp"
-                android:padding="8dp"
-                android:background="#f0f0f0" />
-        </ScrollView>
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                >
 
-    </LinearLayout>
 
+                <!-- Chat Input -->
+                    <EditText
+                        android:fontFamily="@font/shantellsans_regular"
+                        android:background="@drawable/custom_input"
+                        android:id="@+id/inputMessage"
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Type your message"
+                        android:padding="8dp"
+                        android:layout_marginBottom="8dp" />
+
+                    <!-- Send Button -->
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp">
+                        <ImageView
+                            android:layout_width="47dp"
+                            android:layout_height="47dp"
+                            android:background="@drawable/input_back">
+
+                        </ImageView>
+
+                        <Button
+                            android:layout_marginLeft="2dp"
+                            android:id="@+id/sendButton"
+                            android:layout_width="41dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="#38ae52"
+                            
+                            android:backgroundTint="@color/white"
+                            android:layout_marginBottom="16dp" />
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="8dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/send">
+
+                        </ImageView>
+                    </FrameLayout>
+            </LinearLayout>
+                <!-- Chat Response -->
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:fontFamily="@font/shantellsans_regular"
+                            android:id="@+id/chatResponse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Response will appear here"
+                            android:textSize="18sp"
+                            android:padding="8dp"
+                            android:background="#f0f0f0" />
+                    </ScrollView>
+
+            </LinearLayout>
+        </LinearLayout>
     <!-- Dữ liệu cảm biến (Overlay) -->
     <LinearLayout
         android:id="@+id/sensor_data"
