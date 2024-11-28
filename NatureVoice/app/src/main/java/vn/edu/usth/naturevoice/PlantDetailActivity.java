@@ -37,6 +37,7 @@ public class PlantDetailActivity extends AppCompatActivity {
     private TextView humidityText;
     private TextView lightText;
     private LinearLayout sensorDataLayout;  // Add this line
+    private LinearLayout detailchat;
 
     private static final String API_URL = "http://192.168.1.140:5000/api/plant_chat";
     ChatHistory chatHistory = new ChatHistory();
@@ -53,8 +54,8 @@ public class PlantDetailActivity extends AppCompatActivity {
         temperatureText = findViewById(R.id.temperatureText);
         humidityText = findViewById(R.id.humidityText);
         lightText = findViewById(R.id.lightText);
-        sensorDataLayout = findViewById(R.id.sensor_data);  // Initialize sensor data layout
-
+        sensorDataLayout = findViewById(R.id.sensor_data);// Initialize sensor data layout
+        detailchat =findViewById(R.id.detail_chat);//chat layout
         inputMessage = findViewById(R.id.inputMessage);
         sendButton = findViewById(R.id.sendButton);
         chatResponse = findViewById(R.id.chatResponse);
@@ -83,9 +84,13 @@ public class PlantDetailActivity extends AppCompatActivity {
         statusImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Animation slideOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_down);
+                Animation slideIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_up);
+                Animation zoomIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                Animation zoomOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_out);
                 if (sensorDataLayout.getVisibility() == View.VISIBLE) {
                     // Hiệu ứng trượt xuống khi ẩn
-                    Animation slideOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_down);
+
                     slideOut.setAnimationListener(new Animation.AnimationListener() {
                         public void onAnimationStart(Animation animation) {
                             // Không cần xử lý
@@ -100,12 +105,15 @@ public class PlantDetailActivity extends AppCompatActivity {
                         }
                     });
                     sensorDataLayout.startAnimation(slideOut);
+                    detailchat.startAnimation(slideIn);
+                    statusImage.startAnimation(zoomOut);
                 } else {
                     // Hiển thị trước khi bắt đầu hiệu ứng
                     sensorDataLayout.setVisibility(View.VISIBLE);
                     // Hiệu ứng trượt lên khi hiển thị
-                    Animation slideIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_up);
+                    statusImage.startAnimation(zoomIn);
                     sensorDataLayout.startAnimation(slideIn);
+                    detailchat.startAnimation(slideOut);
                 }
             }
         });

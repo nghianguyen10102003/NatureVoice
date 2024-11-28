@@ -34,8 +34,8 @@
             android:fontFamily="@font/shantellsans_regular"/>
 
             <EditText
-
-
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/custom_input"
                 android:id="@+id/plant_name_input"

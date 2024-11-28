@@ -16,36 +16,46 @@
 
         <!-- Tên cây -->
         <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <ImageView
-                android:layout_width="50dp"
+            <FrameLayout
+                android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:id="@+id/plant_avatar"/>
+                android:background="@drawable/ava_background">
+                <ImageView
+                    android:layout_marginTop="3dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/plant_avatar"/>
+
+            </FrameLayout>
             <TextView
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="25dp"
-                android:textSize="30dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="27dp"
                 android:fontFamily="@font/shantellsans_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/plant_name" />
-
         </LinearLayout>
 
 
         <!-- Biểu tượng trạng thái -->
         <ImageView
+            android:layout_marginTop="40dp"
             android:id="@+id/status"
             android:layout_marginLeft="340dp"
-            android:layout_width="65dp"
-            android:layout_height="60dp"
+            android:layout_width="52dp"
+            android:layout_height="48dp"
             android:background="@drawable/status_quo" />
 
         <!-- Hình ảnh cây -->
         <ImageView
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="15dp"
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -53,7 +63,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/monitor">
+            android:background="@drawable/monitor"
+            android:id="@+id/detail_chat">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -139,8 +150,8 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Plant Monitor"
-            android:textSize="22sp"
+            android:text="Statistics"
+            android:textSize="24sp"
             android:fontFamily="@font/shantellsans_bold"
             android:textColor="#000000"
             android:layout_gravity="center_horizontal"
@@ -158,11 +169,11 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_background">
+                android:background="@drawable/temp_background">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="31dp"
+                    android:layout_height="31dp"
                     android:src="@drawable/thermometer"
                     android:contentDescription="Temperature Icon" />
 
@@ -172,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text=" -- °C"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:fontFamily="@font/shantellsans_regular"
                     android:textColor="#000000" />
             </LinearLayout>
@@ -181,8 +192,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="temperature"
-                android:textSize="18sp"
+                android:text="Temperature"
+                android:textSize="21sp"
                 android:fontFamily="@font/shantellsans_regular"
                 android:textColor="#000000" />
         </LinearLayout>
@@ -198,11 +209,11 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_background">
+                android:background="@drawable/hum_background">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="31dp"
+                    android:layout_height="31dp"
                     android:src="@drawable/water_drop"
                     android:contentDescription="Humidity Icon" />
 
@@ -212,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="-- %"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:fontFamily="@font/shantellsans_regular"
                     android:textColor="#000000" />
             </LinearLayout>
@@ -221,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Humidity"
-                android:textSize="18sp"
+                android:textSize="21sp"
                 android:fontFamily="@font/shantellsans_regular"
                 android:textColor="#000000" />
 
@@ -238,11 +249,11 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_background">
+                android:background="@drawable/light_background">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="31dp"
+                    android:layout_height="31dp"
                     android:src="@drawable/sun"
                     android:contentDescription="Light Icon" />
 
@@ -252,7 +263,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="-- lx"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:fontFamily="@font/shantellsans_regular"
                     android:textColor="#000000" />
             </LinearLayout>
@@ -260,8 +271,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="lighting"
-                android:textSize="18sp"
+                android:text="Lighting"
+                android:textSize="21sp"
                 android:fontFamily="@font/shantellsans_regular"
                 android:textColor="#000000" />
         </LinearLayout>
