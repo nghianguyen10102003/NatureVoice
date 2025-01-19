@@ -2,6 +2,7 @@ package vn.edu.usth.naturevoice;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,10 +19,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,26 +49,33 @@ public class HomeFragment extends Fragment {
     private LinearLayout noteContainer;
     private Socket mSocket;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        linearLayout = view.findViewById(R.id.image_container);
-        noteContainer = view.findViewById(R.id.note_container); // Lấy container Note
 
-        mSocket = SocketSingleton.getInstance();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        linearLayout = view.findViewById(R.id.image_container);
+        noteContainer = view.findViewById(R.id.note_container);
+
+        ImageView btnSettings = view.findViewById(R.id.setting_btn);
+        btnSettings.setOnClickListener(v -> showIPInputDialog());
+
+        // Reference EditText and Button for updating server IP
+
+
+        // Initialize the socket
+        mSocket = SocketSingleton.getInstance(requireContext());
         if (!SocketSingleton.isConnected()) {
             mSocket.connect();
         }
+
         IntentFilter filter = new IntentFilter("vn.edu.usth.naturevoice.UPDATE_UI");
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(updateReceiver, filter);
 
-//        mSocket.on("alert", onAlert);
-        // Refresh images based on plant list
         refreshImages();
         return view;
     }
+
 
     @Override
     public void onDestroyView() {
@@ -72,6 +83,42 @@ public class HomeFragment extends Fragment {
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(updateReceiver);
 
     }
+
+    private void showIPInputDialog() {
+        // Create a dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Update Server IP");
+
+        // Add a custom view to the dialog
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.ip_popup, null);
+        EditText etServerIp = dialogView.findViewById(R.id.et_server_ip);
+
+        // Pre-fill the EditText with the current server IP
+        String currentUrl = ((MainActivity) requireActivity()).loadServerUrl();
+        etServerIp.setText(currentUrl);
+
+        builder.setView(dialogView);
+
+        // Add "Save" button
+        builder.setPositiveButton("Save", (dialog, which) -> {
+            String newUrl = etServerIp.getText().toString().trim();
+            if (!newUrl.isEmpty()) {
+                ((MainActivity) requireActivity()).saveServerUrl(newUrl);
+                ((MainActivity) requireActivity()).restartAlertService();
+                Toast.makeText(requireContext(), "Server URL updated to: " + newUrl, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireContext(), "Please enter a valid URL", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Add "Cancel" button
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        // Show the dialog
+        builder.create().show();
+    }
+
 
     /**
      * Refresh the image container using the plant list from MainActivity.

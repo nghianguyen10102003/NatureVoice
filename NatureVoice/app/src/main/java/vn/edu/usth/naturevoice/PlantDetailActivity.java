@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
@@ -39,7 +40,7 @@ public class PlantDetailActivity extends AppCompatActivity {
     private LinearLayout sensorDataLayout;  // Add this line
     private LinearLayout detailchat;
 
-    private static final String API_URL = "http://192.168.1.140:5000/api/plant_chat";
+    private static final String API_URL = "http://192.168.1.157:5000/api/plant_chat";
     ChatHistory chatHistory = new ChatHistory();
     private EditText inputMessage;
     private Button sendButton;
@@ -49,6 +50,7 @@ public class PlantDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_detail);
+        EdgeToEdge.enable(this);
 
         // Initialize views
         temperatureText = findViewById(R.id.temperatureText);
@@ -61,7 +63,7 @@ public class PlantDetailActivity extends AppCompatActivity {
         chatResponse = findViewById(R.id.chatResponse);
 
         // Set up socket connection
-        mSocket = SocketSingleton.getInstance();
+        mSocket = SocketSingleton.getInstance(this);
         if (mSocket != null) {
             mSocket.on("sensor_data", onSensorData);
         }
@@ -183,26 +185,36 @@ public class PlantDetailActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
                 if (response.isSuccessful()) {
                     String responseBody = response.body().string();
                     try {
+                        // Log phản hồi để kiểm tra dữ liệu nhận được từ server
+                        Log.d("API", "Response Body: " + responseBody);
+
                         JSONObject jsonResponse = new JSONObject(responseBody);
-                        String serverResponse = jsonResponse.getString("response");
 
-                        Log.d("API", "Chat response: " + serverResponse);
-                        runOnUiThread(() -> {
+                        // Kiểm tra nếu trường "response" tồn tại trong JSON
+                        if (jsonResponse.has("response")) {
+                            String serverResponse = jsonResponse.getString("response");
 
-                            chatHistory.addBotMessage(serverResponse);
-                            // Update UI with response
-                            updateChatResponse();
-                            inputMessage.setText(""); // Clear the input field
-                        });
+                            Log.d("API", "Chat response: " + serverResponse);
+
+                            // Cập nhật UI trên main thread
+                            runOnUiThread(() -> {
+                                // Lưu ý: Kiểm tra chatHistory có được khởi tạo chính xác không
+                                chatHistory.addBotMessage(serverResponse);
+                                updateChatResponse();  // Cập nhật giao diện với phản hồi mới
+                                inputMessage.setText(""); // Clear the input field
+                            });
+                        } else {
+                            Log.e("API", "Response does not contain 'response' field");
+                        }
                     } catch (JSONException e) {
                         Log.e("API", "Error parsing server response", e);
+                        runOnUiThread(() -> chatResponse.setText("Error parsing server response"));
                     }
                 } else {
-                    Log.e("API", "Failed to get valid response");
+                    Log.e("API", "Failed to get valid response: " + response.code() + " " + response.message());
                     runOnUiThread(() -> chatResponse.setText("Error: Invalid response from server"));
                 }
             }

@@ -25,47 +25,56 @@ public class AlertService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "AlertService started");
+        initializeSocket();
+    }
 
-        // Initialize the socket connection
-        mSocket = SocketSingleton.getInstance();
+    private void initializeSocket() {
+        mSocket = SocketSingleton.getInstance(this);
         if (!SocketSingleton.isConnected()) {
             mSocket.connect();
         }
-
-        // Attach the alert listener
         mSocket.on("alert", onAlert);
+        Log.d(TAG, "Socket initialized in AlertService");
+    }
+
+    private void reinitializeSocket() {
+        if (mSocket != null) {
+            mSocket.off("alert", onAlert);
+            mSocket.disconnect();
+            mSocket = null;
+        }
+
+        mSocket = SocketSingleton.getInstance(this);
+        if (!SocketSingleton.isConnected()) {
+            mSocket.connect();
+        }
+        mSocket.on("alert", onAlert);
+        Log.d(TAG, "Socket reinitialized in AlertService");
     }
 
     private final Emitter.Listener onAlert = args -> {
-        if (args.length > 0) {
-            try {
-                JSONObject data = (JSONObject) args[0];
+        try {
+            JSONObject data = (JSONObject) args[0];
+            Log.d("AlertService", "Received alert data: " + data.toString());
+
+            if (data.has("id")) {
                 int id = data.getInt("id");
-                String type = data.getString("type");
-                String message = data.getString("message");
+                String type = data.optString("type", "default");
+                String message = data.optString("message", "No message");
 
-                Log.d(TAG, "Alert received: " + id + " - " + type + " - " + message);
+                Log.d("AlertService", "Parsed alert: id=" + id + ", type=" + type + ", message=" + message);
 
-                // Update the plant list if available
-                if (plantList != null) {
-                    for (Plant plant : plantList) {
-                        if (plant.getId() == id) {
-                            plant.setNoti_type(type);
-                            plant.setNoti_message(message);
-                        }
-                    }
-                }
-
-                // Send a broadcast to update UI in fragments/activities
                 Intent intent = new Intent("vn.edu.usth.naturevoice.UPDATE_UI");
                 intent.putExtra("id", id);
                 intent.putExtra("type", type);
                 intent.putExtra("message", message);
                 LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
-            } catch (JSONException e) {
-                Log.e(TAG, "Error parsing alert data", e);
+            } else {
+                Log.e("AlertService", "Alert data does not contain 'id'");
             }
+        } catch (JSONException e) {
+            Log.e("AlertService", "Error parsing alert data", e);
         }
     };
 
@@ -73,12 +82,11 @@ public class AlertService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "AlertService is running");
 
-        // If plant list is passed, initialize it
         if (intent != null && intent.hasExtra("plant_list")) {
             plantList = (ArrayList<Plant>) intent.getSerializableExtra("plant_list");
         }
 
-        return START_STICKY; // Keep the service running
+        return START_STICKY;
     }
 
     @Override
@@ -86,7 +94,6 @@ public class AlertService extends Service {
         super.onDestroy();
         Log.d(TAG, "AlertService stopped");
 
-        // Remove socket listener and disconnect
         if (mSocket != null) {
             mSocket.off("alert", onAlert);
             mSocket.disconnect();
@@ -95,6 +102,6 @@ public class AlertService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null; // Not used in this implementation
+        return null;
     }
 }

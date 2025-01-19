@@ -37,11 +37,12 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="20dp"
+                android:paddingLeft="15dp"
                 android:background="@drawable/custom_input"
                 android:id="@+id/plant_name_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="  Enter Plant Name"
+                android:hint="Enter Plant Name"
                 android:textColor="#0d522c"
                 android:textSize="25dp"
                 android:fontFamily="@font/shantellsans_regular"/>

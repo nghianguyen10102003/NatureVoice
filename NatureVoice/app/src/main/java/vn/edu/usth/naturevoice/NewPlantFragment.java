@@ -119,6 +119,7 @@ public class NewPlantFragment extends Fragment {
             int plantId = ((MainActivity) getActivity()).getNextPlantId();
             Log.d("newplant", "id: " + plantId);
             // Create the Plant object with appropriate parameters
+
             Plant plant = new Plant(plantName, charId, plantId,
                     Integer.parseInt(selectedPlantIconId),
                     Integer.parseInt(selectedPlantPotId),'1'

@@ -22,6 +22,8 @@ public class Plant implements Serializable {
         this.potId = potId;
         this.species = species;
         this.sensorId = sensorId;
+
+        //id, name, species, char, pot_icon_id, sensorID
     }
 
     // Getter methods

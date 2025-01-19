@@ -42,10 +42,19 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
+        MyApplication app = (MyApplication) getApplication();
+        if (!app.hasRunOnce()) {
+            clearPlantList(); // Chỉ xóa khi ứng dụng chạy lần đầu
+            app.setHasRunOnce(true); // Đánh dấu đã chạy
+            Log.d(TAG, "First time running the app. SharedPreferences cleared.");
+        }
+
         int lastPlantId = loadLastPlantId();
         Log.d(TAG, "Last Plant ID: " + lastPlantId);
         // Socket
-        mSocket = SocketSingleton.getInstance();
+        mSocket = SocketSingleton.getInstance(this);
         if (!SocketSingleton.isConnected()) {
             mSocket.connect();
         }
@@ -112,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onDestroy() {
         super.onDestroy();
-        Socket mSocket = SocketSingleton.getInstance();
+        Socket mSocket = SocketSingleton.getInstance(this);
         if (mSocket != null) {
             // Disconnect and remove listeners
             mSocket.disconnect();
@@ -224,6 +233,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void addPlantToList(Plant plant) {
         plantList.add(plant); // Add the Plant object to the list
+        savePlantList();
+        //isNewPlantCreated = true;
         int plantCount = plantList.size(); // Get the current number of Plant objects
         checkLog("Plant added to list. Total plants in list: " + plantCount);
     }
@@ -265,4 +276,36 @@ public class MainActivity extends AppCompatActivity {
         }
         checkLog("Plant list loaded from SharedPreferences. Total plants: " + plantList.size());
     }
+
+    private void clearPlantList() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Xóa tất cả dữ liệu đã lưu
+        editor.apply(); // Áp dụng thay đổi
+        Log.d("SharedPreferences", "All plant data cleared.");
+    }
+
+    public void saveServerUrl(String serverUrl) {
+        SharedPreferences sharedPreferences = getSharedPreferences("ServerPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("server_url", serverUrl);
+        editor.apply();
+        // Reset and reinitialize the socket with the new URL
+        SocketSingleton.resetInstance();
+        SocketSingleton.getInstance(this).connect();
+        Log.d(TAG, "Server URL updated to: " + serverUrl);
+    }
+
+    // Load server URL
+    public String loadServerUrl() {
+        SharedPreferences sharedPreferences = getSharedPreferences("ServerPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("server_url", "http://192.168.1.157:5000"); // Default URL
+    }
+    public void restartAlertService() {
+        Intent serviceIntent = new Intent(this, AlertService.class);
+        stopService(serviceIntent); // Stop the current service
+        startService(serviceIntent); // Start a new instance of the service
+        Log.d(TAG, "AlertService restarted");
+    }
+
 }
