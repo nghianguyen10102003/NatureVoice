@@ -1,8 +1,12 @@
 package vn.edu.usth.naturevoice;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
+
+import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -46,10 +50,11 @@ public class PlantDetailActivity extends AppCompatActivity {
     private TextView lightText;
     private LinearLayout sensorDataLayout;
     private LinearLayout detailchat;
-
-
-
     private static final String API_URL = "http://192.168.1.10:5000/api/plant_chat";
+
+    protected static final String PREFS_NAME = "ServerPrefs";
+    protected static final String SERVER_IP_KEY = "server_url";
+    private String API_URL;
     ChatHistory chatHistory = new ChatHistory();
     private EditText inputMessage;
     private Button sendButton;
@@ -62,6 +67,9 @@ public class PlantDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plant_detail);
         EdgeToEdge.enable(this);
 
+        String serverIp = loadServerIp();
+
+        API_URL =  serverIp + "/api/plant_chat";
         // Initialize views
         temperatureText = findViewById(R.id.temperatureText);
         humidityText = findViewById(R.id.humidityText);
@@ -110,6 +118,8 @@ public class PlantDetailActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("PlantDetailActivity", "Loaded Server IP: " + loadServerIp());
+
                 String message = inputMessage.getText().toString().trim();
                 if (!message.isEmpty()) {
                     sendChatMessage(message);
@@ -270,7 +280,17 @@ public class PlantDetailActivity extends AppCompatActivity {
         chatResponse.setText(chatDisplay.toString());
     }
 
+
     private void scrollToBottom() {
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
     }
+
+    private String loadServerIp() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String serverIp = sharedPreferences.getString("server_url", "192.168.1.157"); // Default value
+        Log.d("PlantDetailActivity", "Loaded Server IP: " + serverIp);
+        return serverIp;
+    }
+
+
 }
