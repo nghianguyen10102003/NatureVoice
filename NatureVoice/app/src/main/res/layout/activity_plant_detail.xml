@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PlantDetailActivity"
-    android:background="@drawable/dt">
+    android:background="@drawable/dt"
+    android:focusableInTouchMode="true"
+    android:clickable="true">
 
     <!-- Nội dung chính -->
     <LinearLayout
@@ -16,128 +18,140 @@
 
         <!-- Tên cây -->
         <LinearLayout
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
+
+            <!-- Avatar cây -->
             <FrameLayout
                 android:layout_width="60dp"
                 android:layout_height="50dp"
                 android:background="@drawable/ava_background">
                 <ImageView
-                    android:layout_marginTop="3dp"
-                    android:layout_gravity="center"
+                    android:id="@+id/plant_avatar"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:id="@+id/plant_avatar"/>
-
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp" />
             </FrameLayout>
+
+            <!-- Tên cây -->
             <TextView
-                android:layout_marginTop="7dp"
-                android:layout_marginLeft="10dp"
-                android:textSize="27dp"
-                android:fontFamily="@font/shantellsans_bold"
+                android:id="@+id/plant_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/plant_name" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/shantellsans_bold"
+                android:textSize="27dp" />
         </LinearLayout>
-
 
         <!-- Biểu tượng trạng thái -->
         <ImageView
-            android:layout_marginTop="40dp"
             android:id="@+id/status"
-            android:layout_marginLeft="340dp"
             android:layout_width="52dp"
             android:layout_height="48dp"
+            android:layout_marginLeft="340dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/status_quo" />
 
         <!-- Hình ảnh cây -->
         <ImageView
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center"
+            android:id="@+id/plant_image"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:id="@+id/plant_image" />
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp" />
+
+        <!-- Khu vực chat -->
         <LinearLayout
+            android:id="@+id/detail_chat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/monitor"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:id="@+id/detail_chat">
+            android:background="@drawable/monitor2">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:id="@+id/chat_input_zone"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                >
+                android:padding="8dp">
 
+                <!-- Ô nhập -->
+                <EditText
+                    android:id="@+id/inputMessage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_input"
+                    android:fontFamily="@font/shantellsans_regular"
+                    android:hint="Type your message"
+                    android:padding="8dp" />
 
-                <!-- Chat Input -->
-                    <EditText
-                        android:fontFamily="@font/shantellsans_regular"
-                        android:background="@drawable/custom_input"
-                        android:id="@+id/inputMessage"
-                        android:layout_width="310dp"
+                <!-- Nút gửi -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp">
+
+                    <ImageView
+                        android:layout_width="47dp"
+                        android:layout_height="47dp"
+                        android:background="@drawable/input_back" />
+
+                    <Button
+                        android:id="@+id/sendButton"
+                        android:layout_width="41dp"
                         android:layout_height="wrap_content"
-                        android:hint="Type your message"
-                        android:padding="8dp"
-                        android:layout_marginBottom="8dp" />
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/white"
+                        android:textColor="#38ae52" />
 
-                    <!-- Send Button -->
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp">
-                        <ImageView
-                            android:layout_width="47dp"
-                            android:layout_height="47dp"
-                            android:background="@drawable/input_back">
-
-                        </ImageView>
-
-                        <Button
-                            android:layout_marginLeft="2dp"
-                            android:id="@+id/sendButton"
-                            android:layout_width="41dp"
-                            android:layout_height="wrap_content"
-                            android:textColor="#38ae52"
-                            
-                            android:backgroundTint="@color/white"
-                            android:layout_marginBottom="16dp" />
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="8dp"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@drawable/send">
-
-                        </ImageView>
-                    </FrameLayout>
-
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/send" />
+                </FrameLayout>
             </LinearLayout>
-                <!-- Chat Response -->
-                    <ScrollView
+            <!-- Nội dung chat -->
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="5dp">
+                <LinearLayout
+                    android:id="@+id/chatContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Tin nhắn mẫu -->
+                    <TextView
+                        android:id="@+id/chatResponse"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp">
-                        <TextView
-                            android:fontFamily="@font/shantellsans_regular"
-                            android:id="@+id/chatResponse"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Response will appear here"
-                            android:textSize="18sp"
-                            android:padding="8dp"
-                            android:background="@color/white"
-                            />
-                    </ScrollView>
+                        android:background="@color/white"
+                        android:fontFamily="@font/shantellsans_regular"
+                        android:padding="8dp"
+                        android:text="Response will appear here"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </ScrollView>
 
-            </LinearLayout>
+            <!-- Thanh nhập liệu -->
+
         </LinearLayout>
+    </LinearLayout>
+
     <!-- Dữ liệu cảm biến (Overlay) -->
     <LinearLayout
         android:id="@+id/sensor_data"
@@ -155,12 +169,11 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Statistics"
-            android:textSize="24sp"
             android:fontFamily="@font/shantellsans_bold"
-            android:textColor="#000000"
-            android:layout_gravity="center_horizontal"
             android:paddingBottom="12dp"
+            android:text="Statistics"
+            android:textColor="#000000"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <!-- Nhiệt độ -->
@@ -171,9 +184,9 @@
             android:gravity="center_vertical"
             android:paddingBottom="8dp">
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:background="@drawable/temp_background">
 
                 <ImageView
@@ -187,20 +200,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text=" -- °C"
-                    android:textSize="20sp"
                     android:fontFamily="@font/shantellsans_regular"
+                    android:text="-- °C"
+                    android:textSize="20sp"
                     android:textColor="#000000" />
             </LinearLayout>
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Temperature"
-                android:textSize="21sp"
-                android:fontFamily="@font/shantellsans_regular"
-                android:textColor="#000000" />
         </LinearLayout>
 
         <!-- Độ ẩm -->
@@ -211,9 +215,9 @@
             android:gravity="center_vertical"
             android:paddingBottom="8dp">
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:background="@drawable/hum_background">
 
                 <ImageView
@@ -227,20 +231,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="@font/shantellsans_regular"
                     android:text="-- %"
                     android:textSize="20sp"
-                    android:fontFamily="@font/shantellsans_regular"
                     android:textColor="#000000" />
             </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Humidity"
-                android:textSize="21sp"
-                android:fontFamily="@font/shantellsans_regular"
-                android:textColor="#000000" />
-
         </LinearLayout>
 
         <!-- Ánh sáng -->
@@ -251,9 +246,9 @@
             android:gravity="center_vertical"
             android:paddingBottom="8dp">
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:background="@drawable/light_background">
 
                 <ImageView
@@ -267,22 +262,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="@font/shantellsans_regular"
                     android:text="-- lx"
                     android:textSize="20sp"
-                    android:fontFamily="@font/shantellsans_regular"
                     android:textColor="#000000" />
             </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Lighting"
-                android:textSize="21sp"
-                android:fontFamily="@font/shantellsans_regular"
-                android:textColor="#000000" />
         </LinearLayout>
-
-
     </LinearLayout>
-
 </FrameLayout>
