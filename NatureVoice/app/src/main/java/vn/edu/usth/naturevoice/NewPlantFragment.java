@@ -1,5 +1,6 @@
 package vn.edu.usth.naturevoice;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,8 +8,10 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,7 +43,12 @@ public class NewPlantFragment extends Fragment {
 
         plantNameInput = view.findViewById(R.id.plant_name_input);
         plantCharacterSpinner = view.findViewById(R.id.plant_character_spinner);
-
+        view.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                hideKeyboard();
+            }
+            return false;
+        });
         // Setup character Spinner
         setupCharacterSpinner();
 
@@ -53,6 +61,7 @@ public class NewPlantFragment extends Fragment {
         FrameLayout plantPot3 = view.findViewById(R.id.Plant_pot_3);
 
         Button letsPlantButton = view.findViewById(R.id.lets_plant_button);
+
 
         // Handle plant icon selection
         plantIcon1.setOnClickListener(v -> {
@@ -135,10 +144,19 @@ public class NewPlantFragment extends Fragment {
                     .replace(R.id.newPlant, new HomeFragment())
                     .addToBackStack(null)
                     .commit();
+
         });
 
         return view;
     }
+    private void hideKeyboard() {
+        View view = requireActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
 
     private void setupCharacterSpinner() {
         String[] characterOptions = {"Vui vẻ", "Buồn bã", "Tức giận"};
