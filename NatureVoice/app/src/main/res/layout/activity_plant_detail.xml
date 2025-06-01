@@ -171,6 +171,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/shantellsans_bold"
             android:paddingBottom="12dp"
+            android:layout_gravity="center"
             android:text="Statistics"
             android:textColor="#000000"
             android:textSize="24sp"

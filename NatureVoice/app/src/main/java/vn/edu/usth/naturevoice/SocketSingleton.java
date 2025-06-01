@@ -20,8 +20,10 @@ public class SocketSingleton {
     public static Socket getInstance(Context context) {
         if (mSocket == null) {
             try {
-                SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-                String serverUrl = prefs.getString(SERVER_URL_KEY, DEFAULT_URL);
+                PlantDAO plantDAO = new PlantDAO(context);
+                plantDAO.open();
+                String serverUrl = plantDAO.loadServerUrl();
+                plantDAO.close();
 
                 IO.Options options = new IO.Options();
                 options.query = "client_id=client_1234";

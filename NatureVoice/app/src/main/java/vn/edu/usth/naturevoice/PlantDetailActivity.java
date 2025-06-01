@@ -50,11 +50,10 @@ public class PlantDetailActivity extends AppCompatActivity {
     private TextView lightText;
     private LinearLayout sensorDataLayout;
     private LinearLayout detailchat;
-    private static final String API_URL = "http://192.168.1.10:5000/api/plant_chat";
+    private static String API_URL = "http://192.168.1.10:5000/api/plant_chat";
 
     protected static final String PREFS_NAME = "ServerPrefs";
     protected static final String SERVER_IP_KEY = "server_url";
-    private String API_URL;
     ChatHistory chatHistory = new ChatHistory();
     private EditText inputMessage;
     private Button sendButton;
@@ -286,8 +285,10 @@ public class PlantDetailActivity extends AppCompatActivity {
     }
 
     private String loadServerIp() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String serverIp = sharedPreferences.getString("server_url", "192.168.1.157"); // Default value
+        PlantDAO plantDAO = new PlantDAO(this);
+        plantDAO.open();
+        String serverIp = plantDAO.loadServerUrl();
+        plantDAO.close();
         Log.d("PlantDetailActivity", "Loaded Server IP: " + serverIp);
         return serverIp;
     }
